@@ -50,10 +50,10 @@ android {
             keyPassword = "android"
         }
         create("release") {
-//            storeFile = file("../buildSrc/release.jks")
-//            storePassword = AppReleaseData.STORE_PASSWORD
-//            keyAlias = AppReleaseData.KEY_ALIAS
-//            keyPassword = AppReleaseData.KEY_PASSWORD
+            storeFile = file("../buildSrc/release.jks")
+            storePassword = AppReleaseData.STORE_PASSWORD
+            keyAlias = AppReleaseData.KEY_ALIAS
+            keyPassword = AppReleaseData.KEY_PASSWORD
         }
     }
 
