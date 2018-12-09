@@ -7,24 +7,33 @@ jobs:
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
+      - run:
+          name: Setup Environment Variables
+          command: |
+            echo 'export KEYSTORE_URL="$L_KEYSTORE_URL"' >> $BASH_ENV
+            echo 'export ALIAS="$L_ALIAS"' >> $BASH_ENV
+            echo 'export KEY_PASS="$L_KEY_PASS"' >> $BASH_ENV
+            echo 'export PASS="$L_PASS"' >> $BASH_ENV
+
      - run:
           name: log
           command: |
-             echo 'echo ' >> $keystoreurl
-             echo 'echo ' >> $pass
-             echo 'echo ' >> $alias
-             echo 'echo ' >> $keypass
+            'echo url= $KEYSTORE_URL'
+            'echo alias= $ALIAS'
+            'echo key_pass= $KEY_PASS'
+            'echo pass= $PASS'
 
       - run:
           name: Get Release.jks file
           command: |
-            curl -o buildSrc/release.jks >> $keystoreurl
+            'curl -o buildSrc/release.jks >> $KEYSTORE_URL'
+
       - run:
           name: create release data file
           command: |
-            echo project.ext.alias= >> $alias >>buildSrc/properties.gradle
-            echo project.ext.pass= >> $pass >>buildSrc/properties.gradle
-            echo project.ext.keypass= >> $keypass >>buildSrc/properties.gradle
+            'echo project.ext.alias= >> $ALIAS >> buildSrc/properties.gradle'
+            'echo project.ext.pass= >> $PASS >> buildSrc/properties.gradle'
+            'echo project.ext.keypass= >> $KEY_PASS >> buildSrc/properties.gradle'
 
       - checkout
       - restore_cache:
