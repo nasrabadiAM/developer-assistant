@@ -14,6 +14,7 @@ jobs:
             echo 'export ALIAS="$L_ALIAS"' >> $BASH_ENV
             echo 'export KEY_PASS="$L_KEY_PASS"' >> $BASH_ENV
             echo 'export PASS="$L_PASS"' >> $BASH_ENV
+            source $BASH_ENV
 
      - run:
           name: log
