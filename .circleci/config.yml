@@ -19,22 +19,22 @@ jobs:
      - run:
           name: log
           command: |
-            'echo url= $KEYSTORE_URL'
-            'echo alias= $ALIAS'
-            'echo key_pass= $KEY_PASS'
-            'echo pass= $PASS'
+            echo url= $KEYSTORE_URL
+            echo alias= $ALIAS
+            echo key_pass= $KEY_PASS
+            echo pass= $PASS
 
       - run:
           name: Get Release.jks file
           command: |
-            'curl -o buildSrc/release.jks >> $KEYSTORE_URL'
+            curl -o buildSrc/release.jks >> $KEYSTORE_URL
 
       - run:
           name: create release data file
           command: |
-            'echo project.ext.alias= >> $ALIAS >> buildSrc/properties.gradle'
-            'echo project.ext.pass= >> $PASS >> buildSrc/properties.gradle'
-            'echo project.ext.keypass= >> $KEY_PASS >> buildSrc/properties.gradle'
+            echo "project.ext.alias=$ALIAS" >> buildSrc/properties.gradle
+            echo "project.ext.pass=$PASS" >> buildSrc/properties.gradle
+            echo "project.ext.keypass=$KEY_PASS" >> buildSrc/properties.gradle
 
       - checkout
       - restore_cache:
