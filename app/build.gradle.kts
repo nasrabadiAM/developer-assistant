@@ -16,8 +16,6 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.gradle.internal.impldep.com.amazonaws.PredefinedClientConfigurations.defaultConfig
-
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -25,10 +23,11 @@ plugins {
     id("kotlin-kapt")
 }
 
+
 apply {
     plugin("kotlin-android")
+    from(".gradle/properties.gradle")
 }
-
 
 android {
     compileSdkVersion(Deps.buildVariants.target_sdk)
@@ -51,9 +50,9 @@ android {
         }
         create("release") {
             storeFile = file("../buildSrc/release.jks")
-            storePassword = AppReleaseData.STORE_PASSWORD
-            keyAlias = AppReleaseData.KEY_ALIAS
-            keyPassword = AppReleaseData.KEY_PASSWORD
+            storePassword = project.ext["pass"].toString()
+            keyAlias = project.ext["alias"].toString()
+            keyPassword = project.ext["keypass"].toString()
         }
     }
 

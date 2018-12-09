@@ -7,6 +7,17 @@ jobs:
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
+     - run:
+          name: log
+          command: 'echo "$pass\n$alias\n$keypass\n$keystoreurl"'
+
+      - run:
+          name: Get Release.jks file
+          command: 'curl -o buildSrc/release.jks $keystoreurl'
+      - run:
+          name: create release data file
+          command: 'echo "$pass\n$alias\n$keypass" > buildSrc/properties.gradle'
+
       - checkout
       - restore_cache:
           key: jars-{{ checksum "build.gradle.kts" }}-{{ checksum  "app/build.gradle" }}
