@@ -17,13 +17,14 @@ jobs:
 
       - run:
           name: Get Release.jks file
-          command: 'curl -o buildSrc/release.jks' >> $keystoreurl
+          command: |
+            curl -o buildSrc/release.jks >> $keystoreurl
       - run:
           name: create release data file
           command: |
-            'echo project.ext.alias=' >> $alias '>>buildSrc/properties.gradle'
-            'echo project.ext.pass=' >> $pass '>>buildSrc/properties.gradle'
-            'echo project.ext.keypass=' >> $keypass '>>buildSrc/properties.gradle'
+            echo project.ext.alias= >> $alias >>buildSrc/properties.gradle
+            echo project.ext.pass= >> $pass >>buildSrc/properties.gradle
+            echo project.ext.keypass= >> $keypass >>buildSrc/properties.gradle
 
       - checkout
       - restore_cache:
