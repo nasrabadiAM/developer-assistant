@@ -9,7 +9,7 @@ jobs:
     steps:
      - run:
           name: log
-          command: 'echo "$pass\n$alias\n$keypass\n$keystoreurl"'
+          command: 'echo "$pass'
 
       - run:
           name: Get Release.jks file
