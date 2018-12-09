@@ -9,14 +9,21 @@ jobs:
     steps:
      - run:
           name: log
-          command: 'echo "$pass'
+          command: |
+             echo 'echo ' >> $keystoreurl
+             echo 'echo ' >> $pass
+             echo 'echo ' >> $alias
+             echo 'echo ' >> $keypass
 
       - run:
           name: Get Release.jks file
-          command: 'curl -o buildSrc/release.jks $keystoreurl'
+          command: 'curl -o buildSrc/release.jks' >> $keystoreurl
       - run:
           name: create release data file
-          command: 'echo "$pass\n$alias\n$keypass" > buildSrc/properties.gradle'
+          command: |
+            'echo project.ext.alias=' >> $alias '>>buildSrc/properties.gradle'
+            'echo project.ext.pass=' >> $pass '>>buildSrc/properties.gradle'
+            'echo project.ext.keypass=' >> $keypass '>>buildSrc/properties.gradle'
 
       - checkout
       - restore_cache:
