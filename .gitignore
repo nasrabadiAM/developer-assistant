@@ -99,9 +99,5 @@ ehthumbs.db
 Thumbs.db
 
 
-
-buildSrc/src/main/java/AppReleaseData\.kt
-
 buildSrc/release\.jks
 
-buildSrc/release\.jks\.enc
