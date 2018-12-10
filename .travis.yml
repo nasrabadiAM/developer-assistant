@@ -61,13 +61,13 @@ script:
 - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
 
 before_deploy:
-- cp $TRAVIS_BUILD_DIR/buildSrc/release.jks $HOME
+- cp $TRAVIS_BUILD_DIR/release.jks $HOME
 - cd app/build/outputs/apk/
-- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/buildSrc/release.jks -storepass $L_PASS -keypass $L_KEY_PASS app-release-unsigned.apk $L_ALIAS
+- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore release.jks -storepass $L_PASS -keypass $L_KEY_PASS app-release-unsigned.apk $L_ALIAS
 
 # Verification
 - jarsigner -verify app-release-unsigned.apk
-- "${ANDROID_HOME}/build-tools/${ANDROID_BUILD_TOOLS}/zipalign -v 4 app-release-unsigned.apk $APK_NAME.apk"
+- "${ANDROID_HOME}/build-tools/${ANDROID_BUILD_TOOLS}/zipalign -v 4 app-release-unsigned.apk ${APK_NAME}.apk"
 
 deploy:
   provider: releases
