@@ -40,7 +40,8 @@ android:
  - google-gdk-license-.+
 
 before_install:
-- "curl -o buildSrc/release.jks.enc $L_JKS_ENC_FILE"
+- "mkdir -p app/.gradle/ && printf '%s\n' 'project.ext.pass =\"${L_PASS}\"' 'project.ext.alias =\"${L_ALIAS}\"' 'project.ext.keypass =\"${L_KEY_PASS}\"' > app/.gradle/properties.gradle"
+- "curl -o buildSrc/release.jks.enc ${L_JKS_ENC_FILE}"
 - openssl aes-256-cbc -K $encrypted_d178034d737f_key -iv $encrypted_d178034d737f_iv -in buildSrc/release.jks.enc -out buildSrc/release.jks -d
 - mkdir "$ANDROID_HOME/licenses" || true
 
@@ -66,7 +67,7 @@ before_deploy:
 
 # Verification
 - jarsigner -verify app-release-unsigned.apk
-- "${ANDROID_HOME}/build-tools/28.0.3/zipalign -v 4 app-release-unsigned.apk $APK_NAME.apk"
+- "${ANDROID_HOME}/build-tools/${ANDROID_BUILD_TOOLS}/zipalign -v 4 app-release-unsigned.apk $APK_NAME.apk"
 
 deploy:
   provider: releases
