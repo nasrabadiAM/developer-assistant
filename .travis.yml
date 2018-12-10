@@ -15,7 +15,7 @@ cache:
 env:
  global:
  - ANDROID_API=28
- - EMULATOR_API=28
+ - EMULATOR_API_LEVEL=25
  - ANDROID_BUILD_TOOLS=28.0.3
  - ADB_INSTALL_TIMEOUT=5 # minutes
  - REPO_NAME="$(echo $TRAVIS_REPO_SLUG| cut -d'/' -f 2)"
@@ -52,13 +52,14 @@ before_install:
 - ./gradlew dependencies || true
 
 before_script:
-- echo no | android create avd --force -n test -t android-28 --abi x86_64
+- echo no | android create avd --force -n test -t android-$EMULATOR_API_LEVEL --abi armeabi-v7a
 - emulator -avd test -no-skin -no-audio -no-window &
 - android-wait-for-emulator
 - adb shell input keyevent 82 &
 
 script:
 - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
+#- "./gradlew test"
 
 before_deploy:
 - cp $TRAVIS_BUILD_DIR/release.jks $HOME
