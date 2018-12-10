@@ -41,7 +41,7 @@ android:
 
 before_install:
 - mkdir -p app/.gradle/ && printf '%s\n' 'project.ext.pass =\"${L_PASS}\"' 'project.ext.alias =\"${L_ALIAS}\"' 'project.ext.keypass =\"${L_KEY_PASS}\"' > app/.gradle/properties.gradle
-- openssl aes-256-cbc -k $L_ENC_PASS -in release.jks.enc -out release.jks -d
+- openssl aes-256-cbc -k '${L_ENC_PASS}' -in release.jks.enc -out release.jks -d
 - cp release.jks buildSrc/release.jks
 - mkdir "$ANDROID_HOME/licenses" || true
 
