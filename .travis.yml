@@ -41,7 +41,7 @@ android:
 
 before_install:
 - "mkdir -p app/.gradle/ && printf '%s\n' 'project.ext.pass =\"${L_PASS}\"' 'project.ext.alias =\"${L_ALIAS}\"' 'project.ext.keypass =\"${L_KEY_PASS}\"' > app/.gradle/properties.gradle"
-- openssl aes-256-cbc -K $encrypted_d178034d737f_key -iv $encrypted_d178034d737f_iv -in buildSrc/release.jks.enc -out buildSrc/release.jks -d
+- openssl aes-256-cbc -K $encrypted_d178034d737f_key -iv $encrypted_d178034d737f_iv -in buildSrc\/release.jks.enc -out buildSrc\/release.jks -d
 - mkdir "$ANDROID_HOME/licenses" || true
 
 - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
