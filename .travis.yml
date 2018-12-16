@@ -72,7 +72,7 @@ before_script:
 
 script:
 - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
-- "./gradlew test"
+#- "./gradlew test"
 
 before_deploy:
 - cp $TRAVIS_BUILD_DIR/release.jks $HOME
