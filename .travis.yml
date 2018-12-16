@@ -30,9 +30,8 @@ android:
  - android-$EMULATOR_API_LEVEL
  - extra-google-m2repository
  - extra-android-m2repository # for design library
- - addon-google_apis-google-19 # google play services
- - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
- - sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API_LEVEL
+ - addon-google_apis-google-25 # google play services
+ - sys-img-x86-android-$EMULATOR_API_LEVEL
 
  licenses:
  - android-sdk-preview-license-.+
@@ -52,7 +51,7 @@ before_install:
 - ./gradlew dependencies || true
 
 before_script:
-- echo no | android create avd --force -n test -t android-$EMULATOR_API_LEVEL --abi armeabi-v7a
+- echo no | android create avd --force -n test -t android-$EMULATOR_API_LEVEL --abi x86 -no-accel
 - emulator -avd test -no-skin -no-audio -no-window &
 - android-wait-for-emulator
 - adb shell input keyevent 82 &
