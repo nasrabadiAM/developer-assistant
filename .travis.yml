@@ -47,7 +47,13 @@ android:
  - google-gdk-license-.+
 
 before_install:
-- mkdir -p app/.gradle/ && printf '%s\n'  project.ext.pass ='"'"${L_PASS}"'"' project.ext.alias ='"'"${L_ALIAS}"'"' project.ext.keypass ='"'"${L_KEY_PASS}"'"' > app/.gradle/properties.gradle
+- mkdir -p app/.gradle/
+- printf  '%s' project.ext.pass ='"'"${L_PASS}"'"' >> app/.gradle/properties.gradle
+- printf  '%s\n' >> app/.gradle/properties.gradle
+- printf  '%s' project.ext.alias ='"'"${L_ALIAS}"'"' >> app/.gradle/properties.gradle
+- printf  '%s\n' >> app/.gradle/properties.gradle
+- printf  '%s' project.ext.keypass ='"'"${L_KEY_PASS}"'"' >> app/.gradle/properties.gradle
+- printf  '%s\n' >> app/.gradle/properties.gradle
 - openssl aes-256-cbc -K $encrypted_6be3810f90ae_key -iv $encrypted_6be3810f90ae_iv -in release.jks.enc -out release.jks -d
 - cp release.jks buildSrc/release.jks
 - mkdir "$ANDROID_HOME/licenses" || true
@@ -66,7 +72,7 @@ before_script:
 
 script:
 - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
-#- "./gradlew test"
+- "./gradlew test"
 
 before_deploy:
 - cp $TRAVIS_BUILD_DIR/release.jks $HOME
