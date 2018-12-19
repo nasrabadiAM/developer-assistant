@@ -70,6 +70,7 @@ class AppsListFragment : Fragment() {
     ): View? {
         rootView = inflater.inflate(R.layout.fragment_apps, container, false)
         rootView.recycler_view.layoutManager = GridLayoutManager(context, 3)
+        rootView.recycler_view.setHasFixedSize(true)
         rootView.recycler_view.adapter = AppsListAdapter()
         (rootView.recycler_view.adapter as AppsListAdapter).onItemClickListener =
                 object : OnItemClickListener {
