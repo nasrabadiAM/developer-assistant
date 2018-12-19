@@ -16,12 +16,9 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+package com.nasrabadiam.developerassistant.apps
 
-plugins {
-    `kotlin-dsl`
-}
-
-repositories {
-    jcenter()
-}
+data class AppSummary(
+    val name: String, val packageName: String,
+    val iconResId: Int
+)

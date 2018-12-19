@@ -16,12 +16,35 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+package com.nasrabadiam.developerassistant.apps.ui
 
-plugins {
-    `kotlin-dsl`
-}
+import android.net.Uri
+import com.nasrabadiam.developerassistant.Util
+import com.nasrabadiam.developerassistant.apps.AppSummary
 
-repositories {
-    jcenter()
+data class AppListItem(
+    val name: String,
+    val packageName: String,
+    val iconUri: Uri
+) {
+
+    companion object {
+        fun of(appSummary: AppSummary): AppListItem {
+            return AppListItem(
+                appSummary.name, appSummary.packageName,
+                Util.getUriFromResourceId(appSummary.packageName, appSummary.iconResId)
+            )
+        }
+    }
+
+    fun compareTo(item: AppListItem): Int {
+        return if (item.name == this.name &&
+            item.packageName == this.packageName &&
+            item.iconUri == this.iconUri
+        ) {
+            0
+        } else {
+            1
+        }
+    }
 }

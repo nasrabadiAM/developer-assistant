@@ -16,27 +16,15 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nasrabadiam.developerassistant
+package com.nasrabadiam.developerassistant.repo
 
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
+import com.nasrabadiam.developerassistant.apps.AppSummary
 
-import org.junit.Test
-import org.junit.runner.RunWith
-
-import org.junit.Assert.*
-
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-@RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.nasrabadiam.developerassistant", appContext.packageName)
+data class AppSummaryEntity(
+    val name: String, val packageName: String,
+    val iconResId: Int
+) {
+    fun getDomainModel(): AppSummary {
+        return AppSummary(name, packageName, iconResId)
     }
 }

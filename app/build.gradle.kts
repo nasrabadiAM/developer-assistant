@@ -89,6 +89,21 @@ dependencies {
     implementation(Deps.supportx.recyclerview)
     implementation(Deps.supportx.design)
 
+    //LiveData & viewModel
+    implementation(Deps.archx.lifecycle.extensions)
+    kapt(Deps.archx.lifecycle.compiler)
+
+    //rxJava
+    implementation(Deps.rx.rxjava2)
+    implementation(Deps.rx.rx_android)
+
+    //glide
+    implementation(Deps.glide.runtime)
+
+    //dependency injection
+    implementation(Deps.dagger.runtime)
+    kapt(Deps.dagger.compiler)
+
     //junit test
     testImplementation(Deps.test.junit)
     testImplementation(Deps.mockito.core)
@@ -104,4 +119,7 @@ dependencies {
     androidTestImplementation(Deps.espresso_x.intents)
     androidTestImplementation("com.nhaarman:mockito-kotlin:1.5.0")
     androidTestImplementation(Deps.kotlin.test)
+
+    //fragment test util
+    debugImplementation("androidx.fragment:fragment-testing:1.1.0-alpha02")
 }

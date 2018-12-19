@@ -16,12 +16,22 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+package com.nasrabadiam.developerassistant
 
-plugins {
-    `kotlin-dsl`
+import android.content.Context
+import android.net.Uri
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+
+object Util {
+    private const val ANDROID_RESOURCE = "android.resource://"
+    private const val FORWARD_SLASH = "/"
+
+    fun getUriFromResourceId(packageName: String, resourceId: Int): Uri {
+        return Uri.parse(ANDROID_RESOURCE + packageName + FORWARD_SLASH + resourceId)
+    }
 }
 
-repositories {
-    jcenter()
+fun ImageView.loadUri(context: Context, uri: Uri) {
+    Glide.with(context).load(uri).into(this)
 }
