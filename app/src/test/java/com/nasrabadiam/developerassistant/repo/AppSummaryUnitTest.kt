@@ -16,27 +16,25 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nasrabadiam.developerassistant
+package com.nasrabadiam.developerassistant.repo
 
-import android.net.Uri
-import android.view.View
-import android.widget.ImageView
-import com.bumptech.glide.Glide
+import org.junit.Assert
+import org.junit.Test
 
-fun View.visible() {
-    visibility = View.VISIBLE
+class AppSummaryUnitTest {
+
+    companion object {
+        const val NAME = "app name"
+        const val PACKAGE_NAME = "com.example"
+        const val ICON_RES_ID = 164
+    }
+
+    @Test
+    fun test_map_to_domain_model() {
+        val appSummary = AppSummaryEntity(NAME, PACKAGE_NAME, ICON_RES_ID)
+        val domainModel = appSummary.getDomainModel()
+        Assert.assertEquals(NAME, domainModel.name)
+        Assert.assertEquals(PACKAGE_NAME, domainModel.packageName)
+        Assert.assertEquals(ICON_RES_ID, domainModel.iconResId)
+    }
 }
-
-fun View.invisible() {
-    visibility = View.INVISIBLE
-}
-
-fun View.gone() {
-    visibility = View.GONE
-}
-
-fun ImageView.loadImage(url: String) =
-    Glide.with(this).load(url).into(this)
-
-fun ImageView.loadImage(uri: Uri) =
-    Glide.with(this).load(uri).into(this)

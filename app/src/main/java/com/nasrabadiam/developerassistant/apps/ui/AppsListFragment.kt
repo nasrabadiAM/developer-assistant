@@ -27,7 +27,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nasrabadiam.developerassistant.R
-import com.nasrabadiam.developerassistant.apps.AppDomainImpl
+import com.nasrabadiam.developerassistant.apps.AppsDomainImpl
 import com.nasrabadiam.developerassistant.apps.SearchViewModel
 import com.nasrabadiam.developerassistant.invisible
 import com.nasrabadiam.developerassistant.repo.RepositoryImpl
@@ -54,7 +54,7 @@ class AppsListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModelFactory =
                 ViewModelFactory(
-                    AppDomainImpl(
+                    AppsDomainImpl(
                         RepositoryImpl(
                             AndroidRepositoryImpl(context!!)
                         )

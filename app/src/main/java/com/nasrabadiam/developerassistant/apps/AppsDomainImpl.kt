@@ -20,7 +20,7 @@ package com.nasrabadiam.developerassistant.apps
 
 import io.reactivex.Observable
 
-class AppDomainImpl(private val repository: Repository) : AppsDomain {
+class AppsDomainImpl(private val repository: Repository) : AppsDomain {
     override fun getAllInstalledApps(): Observable<AppSummary> {
         return repository.getInstalledApps().map { it.getDomainModel() }
     }
