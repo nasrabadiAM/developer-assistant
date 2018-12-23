@@ -16,35 +16,24 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nasrabadiam.developerassistant.apps.ui
+package com.nasrabadiam.developerassistant.apps
 
-import android.net.Uri
-import com.nasrabadiam.developerassistant.AndroidUtil
-import com.nasrabadiam.developerassistant.apps.AppSummary
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.nasrabadiam.developerassistant.apps.ui.AppListItem
 
-data class AppListItem(
-    val name: String,
-    val packageName: String,
-    val iconUri: Uri
-) {
+class SearchViewModel : ViewModel() {
 
-    companion object {
-        fun of(appSummary: AppSummary): AppListItem {
-            return AppListItem(
-                appSummary.name, appSummary.packageName,
-                AndroidUtil.getUriFromResourceId(appSummary.packageName, appSummary.iconResId)
-            )
+    val result: MutableLiveData<List<AppListItem>> = MutableLiveData()
+
+    lateinit var allAppsList: List<AppListItem>
+
+    fun searchForQuery(query: String) {
+        val resultList = allAppsList.filter {
+            it.name.contains(query) ||
+                    it.packageName.contains(query)
         }
+        result.postValue(resultList)
     }
 
-    fun compareTo(item: AppListItem): Int {
-        return if (item.name == this.name &&
-            item.packageName == this.packageName &&
-            item.iconUri == this.iconUri
-        ) {
-            0
-        } else {
-            1
-        }
-    }
 }

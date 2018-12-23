@@ -18,12 +18,9 @@
 
 package com.nasrabadiam.developerassistant
 
-import android.content.Context
 import android.net.Uri
-import android.widget.ImageView
-import com.bumptech.glide.Glide
 
-object Util {
+object AndroidUtil {
     private const val ANDROID_RESOURCE = "android.resource://"
     private const val FORWARD_SLASH = "/"
 
@@ -32,6 +29,3 @@ object Util {
     }
 }
 
-fun ImageView.loadUri(context: Context, uri: Uri) {
-    Glide.with(context).load(uri).into(this)
-}

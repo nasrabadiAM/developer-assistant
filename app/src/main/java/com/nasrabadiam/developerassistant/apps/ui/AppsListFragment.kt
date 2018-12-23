@@ -28,8 +28,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nasrabadiam.developerassistant.R
 import com.nasrabadiam.developerassistant.apps.AppDomainImpl
+import com.nasrabadiam.developerassistant.apps.SearchViewModel
+import com.nasrabadiam.developerassistant.invisible
 import com.nasrabadiam.developerassistant.repo.RepositoryImpl
 import com.nasrabadiam.developerassistant.repo.android.AndroidRepositoryImpl
+import com.nasrabadiam.developerassistant.visible
 import kotlinx.android.synthetic.main.fragment_apps.view.*
 
 class AppsListFragment : Fragment() {
@@ -44,6 +47,8 @@ class AppsListFragment : Fragment() {
             return AppsListFragment()
         }
     }
+
+    private lateinit var searchViewModel: SearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +67,10 @@ class AppsListFragment : Fragment() {
             viewModelFactory
         ).get(AppsListViewModel::class.java)
 
+        searchViewModel = activity?.run {
+            ViewModelProviders.of(this)
+                .get(SearchViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
     }
 
     override fun onCreateView(
@@ -79,7 +88,6 @@ class AppsListFragment : Fragment() {
                     }
                 }
 
-        rootView.progress_bar.isIndeterminate = true
 
         return rootView
     }
@@ -93,16 +101,23 @@ class AppsListFragment : Fragment() {
         appsViewModel.getAllInstalledApps()
         appsViewModel.appsList.observe(this, Observer {
             (rootView.recycler_view.adapter as AppsListAdapter).updateList(it)
+            setupSearch(it)
         })
         appsViewModel.loading.observe(this, Observer {
             if (it) {
-                rootView.progress_bar.visibility = View.VISIBLE
+                rootView.progress_bar.visible()
             } else {
-                rootView.progress_bar.visibility = View.INVISIBLE
+                rootView.progress_bar.invisible()
             }
+        })
+        searchViewModel.result.observe(this, Observer {
+            (rootView.recycler_view.adapter as AppsListAdapter).updateList(it)
         })
     }
 
+    private fun setupSearch(list: List<AppListItem>) {
+        searchViewModel.allAppsList = list
+    }
 }
 
 

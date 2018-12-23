@@ -27,7 +27,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nasrabadiam.developerassistant.R
-import com.nasrabadiam.developerassistant.loadUri
+import com.nasrabadiam.developerassistant.loadImage
 
 class AppsListAdapter :
     RecyclerView.Adapter<AppItemViewHolder>() {
@@ -72,7 +72,7 @@ class AppsListAdapter :
                         //do nothing
                     }
                     "iconUri" -> {
-                        holder.image.loadUri(holder.view.context, app.iconUri)
+                        holder.image.loadImage(app.iconUri)
                     }
                     else -> {
                         //do nothing
@@ -114,7 +114,7 @@ class AppItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         app: AppListItem
     ) {
         title.text = app.name
-        image.loadUri(view.context, app.iconUri)
+        image.loadImage(app.iconUri)
     }
 }
 
