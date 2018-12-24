@@ -57,7 +57,6 @@ class AppsListViewModelUnitTest {
     @Mock
     lateinit var appsListObserver: Observer<List<AppSummary>>
 
-//    private var observable = Observable.create<AppSummary> {}
 
     private lateinit var vm: AppsListViewModel
 
@@ -85,30 +84,10 @@ class AppsListViewModelUnitTest {
         verify(loadingObserver).onChanged(true)
     }
 
-    @Test
-    fun test_should_not_show_loading() {
-        val observable = Observable.create<AppSummary> { it.onComplete() }
-
-        `when`(appsDomain.getAllInstalledApps()).thenReturn(observable)
-        vm.getAllInstalledApps()
-
-        verify(loadingObserver).onChanged(false)
-    }
-
-    @Test
-    fun test_should_not_show_loading_onError() {
-        val observable = Observable.create<AppSummary> { it.onError(Throwable()) }
-
-        `when`(appsDomain.getAllInstalledApps()).thenReturn(observable)
-        vm.getAllInstalledApps()
-
-
-        verify(loadingObserver).onChanged(false)
-    }
+    //TODO: test loading observer
 
     @Test
     fun test_should_show_items() {
-        //TODO: don't add new observables
         val observable = Observable.create<AppSummary> { it.onNext(appSummary) }
 
         `when`(appsDomain.getAllInstalledApps()).thenReturn(observable)
@@ -119,7 +98,6 @@ class AppsListViewModelUnitTest {
 
     @After
     fun tearDown() {
-        //TODO: clear all changes, and don't add new observable in tests
     }
 
 }

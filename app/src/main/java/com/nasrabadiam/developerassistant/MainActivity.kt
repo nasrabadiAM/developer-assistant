@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun getCount(): Int {
-            // Show 3 total pages.
+            // Show 1 total pages.
             return 1
         }
     }
