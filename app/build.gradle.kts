@@ -25,7 +25,6 @@ plugins {
 
 
 apply {
-    plugin("kotlin-android")
     from(".gradle/properties.gradle")
 }
 
