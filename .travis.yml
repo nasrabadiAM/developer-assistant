@@ -71,10 +71,8 @@ before_script:
 - adb shell input keyevent 82 &
 
 script:
-#- "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
-#- "./gradlew test"
-#- "./gradlew assembleRelease"
-- ./gradlew assemble
+- ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
+- ./gradlew assemble --stacktrace
 
 before_deploy:
 - cp $TRAVIS_BUILD_DIR/release.jks $HOME
