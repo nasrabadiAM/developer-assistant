@@ -16,12 +16,16 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+package com.nasrabadiam.developerassistant.repo
 
-plugins {
-    `kotlin-dsl`
-}
+import com.nasrabadiam.developerassistant.apps.Repository
+import com.nasrabadiam.developerassistant.repo.android.AndroidRepository
+import io.reactivex.Observable
 
-repositories {
-    jcenter()
+class RepositoryImpl(private val androidRepository: AndroidRepository) : Repository() {
+
+    override fun getInstalledApps(): Observable<AppSummaryEntity> {
+        return androidRepository.getInstalledApps()
+    }
+
 }

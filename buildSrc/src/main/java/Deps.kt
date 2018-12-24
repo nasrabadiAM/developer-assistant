@@ -120,10 +120,18 @@ object Deps {
         const val paging = "androidx.paging:paging-retrofit_runtime:${versions.arch_core_x}-rc01"
 
         object lifecycle {
-            const val runtime = "androidx.lifecycle:lifecycle-retrofit_runtime:${versions.arch_core_x}-rc01"
-            const val extensions = "androidx.lifecycle:lifecycle-extensions:${versions.arch_core_x}-rc01"
-            const val java8 = "androidx.lifecycle:lifecycle-common-java8:${versions.arch_core_x}-rc01"
-            const val compiler = "androidx.lifecycle:lifecycle-compiler:${versions.arch_core_x}-rc01"
+            const val retrofit_runtime = "androidx.lifecycle:lifecycle-retrofit_runtime:${versions.arch_core_x}"
+
+            // ViewModel and LiveData
+            const val extensions = "androidx.lifecycle:lifecycle-extensions:${versions.arch_core_x}"
+
+            // alternatively - just ViewModel\
+            const val viewModel= "androidx.lifecycle:lifecycle-viewmodel:${versions.arch_core_x}-ktx" // use -ktx for Kotlin
+            // alternatively - just LiveData
+            const val LiveData= "androidx.lifecycle:lifecycle-livedata:${versions.arch_core_x}"
+
+            const val java8 = "androidx.lifecycle:lifecycle-common-java8:${versions.arch_core_x}"
+            const val compiler = "androidx.lifecycle:lifecycle-compiler:${versions.arch_core_x}"
         }
 
         object room {

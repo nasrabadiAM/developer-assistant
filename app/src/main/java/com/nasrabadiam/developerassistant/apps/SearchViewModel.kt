@@ -16,27 +16,23 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nasrabadiam.developerassistant
+package com.nasrabadiam.developerassistant.apps
 
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-import org.junit.Test
-import org.junit.runner.RunWith
+class SearchViewModel : ViewModel() {
 
-import org.junit.Assert.*
+    val result: MutableLiveData<List<AppSummary>> = MutableLiveData()
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-@RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.nasrabadiam.developerassistant", appContext.packageName)
+    lateinit var allAppsList: List<AppSummary>
+
+    fun searchForQuery(query: String) {
+        val resultList = allAppsList.filter {
+            it.name.contains(query) ||
+                    it.packageName.contains(query)
+        }
+        result.postValue(resultList)
     }
+
 }

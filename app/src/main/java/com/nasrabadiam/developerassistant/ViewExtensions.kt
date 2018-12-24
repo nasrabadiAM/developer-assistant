@@ -16,12 +16,27 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+package com.nasrabadiam.developerassistant
 
-plugins {
-    `kotlin-dsl`
+import android.net.Uri
+import android.view.View
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+
+fun View.visible() {
+    visibility = View.VISIBLE
 }
 
-repositories {
-    jcenter()
+fun View.invisible() {
+    visibility = View.INVISIBLE
 }
+
+fun View.gone() {
+    visibility = View.GONE
+}
+
+fun ImageView.loadImage(url: String) =
+    Glide.with(this).load(url).into(this)
+
+fun ImageView.loadImage(uri: Uri) =
+    Glide.with(this).load(uri).into(this)

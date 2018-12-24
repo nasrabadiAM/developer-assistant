@@ -16,12 +16,25 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+package com.nasrabadiam.developerassistant.repo
 
-plugins {
-    `kotlin-dsl`
-}
+import org.junit.Assert
+import org.junit.Test
 
-repositories {
-    jcenter()
+class AppSummaryUnitTest {
+
+    companion object {
+        const val NAME = "app name"
+        const val PACKAGE_NAME = "com.example"
+        const val ICON_RES_ID = 164
+    }
+
+    @Test
+    fun test_map_to_domain_model() {
+        val appSummary = AppSummaryEntity(NAME, PACKAGE_NAME, ICON_RES_ID)
+        val domainModel = appSummary.getDomainModel()
+        Assert.assertEquals(NAME, domainModel.name)
+        Assert.assertEquals(PACKAGE_NAME, domainModel.packageName)
+        Assert.assertEquals(ICON_RES_ID, domainModel.iconResId)
+    }
 }

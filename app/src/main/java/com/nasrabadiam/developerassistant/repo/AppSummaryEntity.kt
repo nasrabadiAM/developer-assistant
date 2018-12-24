@@ -16,12 +16,15 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+package com.nasrabadiam.developerassistant.repo
 
-plugins {
-    `kotlin-dsl`
-}
+import com.nasrabadiam.developerassistant.apps.AppSummary
 
-repositories {
-    jcenter()
+data class AppSummaryEntity(
+    val name: String, val packageName: String,
+    val iconResId: Int
+) {
+    fun getDomainModel(): AppSummary {
+        return AppSummary(name, packageName, iconResId)
+    }
 }

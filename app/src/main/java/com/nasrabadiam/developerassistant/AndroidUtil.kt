@@ -16,12 +16,16 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+package com.nasrabadiam.developerassistant
 
-plugins {
-    `kotlin-dsl`
+import android.net.Uri
+
+object AndroidUtil {
+    private const val ANDROID_RESOURCE = "android.resource://"
+    private const val FORWARD_SLASH = "/"
+
+    fun getUriFromResourceId(packageName: String, resourceId: Int): Uri {
+        return Uri.parse(ANDROID_RESOURCE + packageName + FORWARD_SLASH + resourceId)
+    }
 }
 
-repositories {
-    jcenter()
-}

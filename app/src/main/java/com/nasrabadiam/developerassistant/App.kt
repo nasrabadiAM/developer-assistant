@@ -16,12 +16,16 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+package com.nasrabadiam.developerassistant
 
-plugins {
-    `kotlin-dsl`
-}
+import android.app.Application
 
-repositories {
-    jcenter()
+class App : Application() {
+
+
+    override fun onCreate() {
+        super.onCreate()
+
+
+    }
 }
