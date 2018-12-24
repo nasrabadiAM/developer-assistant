@@ -78,9 +78,6 @@ class AppsListViewModelUnitTest {
         `when`(appsDomain.getAllInstalledApps()).thenReturn(observable)
         vm.getAllInstalledApps()
 
-        Mockito.verify(appsDomain, Mockito.times(1))
-            .getAllInstalledApps()
-
         verify(loadingObserver).onChanged(true)
     }
 
