@@ -19,40 +19,22 @@
 package com.nasrabadiam.developerassistant.repo.android
 
 import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import com.nasrabadiam.developerassistant.repo.AppSummaryEntity
 import io.reactivex.Observable
-import java.util.*
 
 class AndroidRepositoryImpl(private val context: Context) : AndroidRepository() {
 
     var packageManager: PackageManager = context.packageManager
 
     override fun getInstalledApps(): Observable<AppSummaryEntity> {
-        return Observable.create {
-            packageManager.getInstalledApplications(0)
-
-            var apps: List<ApplicationInfo>? = packageManager.getInstalledApplications(0)
-
-            if (apps == null) {
-                apps = ArrayList()
+        return Observable.fromIterable(packageManager.getInstalledApplications(0))
+            .filter { context.packageManager.getLaunchIntentForPackage(it.packageName) != null }
+            .map {
+                AppSummaryEntity(
+                    packageManager.getApplicationLabel(it).toString(),
+                    it.packageName, it.icon
+                )
             }
-
-            // create corresponding apps and load their labels
-            for (appInfo in apps) {
-                val packageName = appInfo.packageName
-
-                // only apps which are launchable
-                if (context.packageManager.getLaunchIntentForPackage(packageName) != null) {
-                    val name = packageManager.getApplicationLabel(appInfo)
-                    val iconRes = appInfo.icon
-                    val app =
-                        AppSummaryEntity(name.toString(), packageName, iconRes)
-                    it.onNext(app)
-                }
-            }
-            it.onComplete()
-        }
     }
 }

@@ -21,6 +21,7 @@ package com.nasrabadiam.developerassistant.repo
 import com.nasrabadiam.developerassistant.apps.Repository
 import com.nasrabadiam.developerassistant.repo.android.AndroidRepository
 import io.reactivex.Observable
+import io.reactivex.observers.TestObserver
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

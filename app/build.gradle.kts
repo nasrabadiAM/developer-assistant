@@ -107,6 +107,8 @@ dependencies {
     //junit test
     testImplementation(Deps.test.junit)
     testImplementation(Deps.mockito.core)
+    testImplementation(Deps.arch.testing)
+
 
     //android unit test
     androidTestImplementation(Deps.test.junit)

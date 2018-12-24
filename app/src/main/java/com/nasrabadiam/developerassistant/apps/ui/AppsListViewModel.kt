@@ -23,31 +23,30 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nasrabadiam.developerassistant.apps.AppSummary
 import com.nasrabadiam.developerassistant.apps.AppsDomain
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import java.util.*
-import javax.inject.Inject
 
-class AppsListViewModel
-@Inject constructor(private val appsDomain: AppsDomain) : ViewModel() {
+class AppsListViewModel constructor(
+    private val appsDomain: AppsDomain,
+    private val mainScheduler: Scheduler
+) : ViewModel() {
 
-    val appsList: MutableLiveData<List<AppListItem>> = MutableLiveData()
+    val appsList: MutableLiveData<List<AppSummary>> = MutableLiveData()
     val loading: MutableLiveData<Boolean> = MutableLiveData()
-    private val appsSummaryList = ArrayList<AppListItem>()
+    private val appsSummaryList = ArrayList<AppSummary>()
     private val disposables = CompositeDisposable()
 
 
-    fun getAllInstalledApps(): MutableLiveData<List<AppListItem>> {
+    fun getAllInstalledApps() {
         loading.postValue(true)
         val getApps = appsDomain.getAllInstalledApps()
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(mainScheduler)
             .subscribeWith(appsListObserver)
         disposables.addAll(getApps)
-
-        return appsList
     }
 
     private val appsListObserver =
@@ -61,7 +60,7 @@ class AppsListViewModel
             }
 
             override fun onNext(t: AppSummary) {
-                appsSummaryList.add(AppListItem.of(t))
+                appsSummaryList.add(t)
                 appsList.postValue(appsSummaryList)
             }
         }
@@ -73,10 +72,11 @@ class AppsListViewModel
 
 }
 
-class ViewModelFactory(private val domain: AppsDomain) : ViewModelProvider.Factory {
+class ViewModelFactory(private val domain: AppsDomain, private val mainScheduler: Scheduler) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(AppsListViewModel::class.java)) {
-            AppsListViewModel(this.domain) as T
+            AppsListViewModel(this.domain, mainScheduler) as T
         } else {
             throw IllegalArgumentException("ViewModel Not Found")
         }

@@ -27,12 +27,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nasrabadiam.developerassistant.R
+import com.nasrabadiam.developerassistant.apps.AppSummary
 import com.nasrabadiam.developerassistant.apps.AppsDomainImpl
 import com.nasrabadiam.developerassistant.apps.SearchViewModel
 import com.nasrabadiam.developerassistant.invisible
 import com.nasrabadiam.developerassistant.repo.RepositoryImpl
 import com.nasrabadiam.developerassistant.repo.android.AndroidRepositoryImpl
 import com.nasrabadiam.developerassistant.visible
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_apps.view.*
 
 class AppsListFragment : Fragment() {
@@ -59,6 +61,7 @@ class AppsListFragment : Fragment() {
                             AndroidRepositoryImpl(context!!)
                         )
                     )
+                    , AndroidSchedulers.mainThread()
                 )
 
 
@@ -99,8 +102,8 @@ class AppsListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         appsViewModel.getAllInstalledApps()
-        appsViewModel.appsList.observe(this, Observer {
-            (rootView.recycler_view.adapter as AppsListAdapter).updateList(it)
+        appsViewModel.appsList.observe(this, Observer { it ->
+            (rootView.recycler_view.adapter as AppsListAdapter).updateList(it.map { AppListItem.of(it) })
             setupSearch(it)
         })
         appsViewModel.loading.observe(this, Observer {
@@ -110,12 +113,12 @@ class AppsListFragment : Fragment() {
                 rootView.progress_bar.invisible()
             }
         })
-        searchViewModel.result.observe(this, Observer {
-            (rootView.recycler_view.adapter as AppsListAdapter).updateList(it)
+        searchViewModel.result.observe(this, Observer { it ->
+            (rootView.recycler_view.adapter as AppsListAdapter).updateList(it.map { AppListItem.of(it) })
         })
     }
 
-    private fun setupSearch(list: List<AppListItem>) {
+    private fun setupSearch(list: List<AppSummary>) {
         searchViewModel.allAppsList = list
     }
 }

@@ -20,13 +20,12 @@ package com.nasrabadiam.developerassistant.apps
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nasrabadiam.developerassistant.apps.ui.AppListItem
 
 class SearchViewModel : ViewModel() {
 
-    val result: MutableLiveData<List<AppListItem>> = MutableLiveData()
+    val result: MutableLiveData<List<AppSummary>> = MutableLiveData()
 
-    lateinit var allAppsList: List<AppListItem>
+    lateinit var allAppsList: List<AppSummary>
 
     fun searchForQuery(query: String) {
         val resultList = allAppsList.filter {
