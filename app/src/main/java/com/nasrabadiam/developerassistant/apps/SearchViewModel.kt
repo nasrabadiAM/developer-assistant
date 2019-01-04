@@ -25,12 +25,14 @@ class SearchViewModel : ViewModel() {
 
     val result: MutableLiveData<List<AppSummary>> = MutableLiveData()
 
-    lateinit var allAppsList: List<AppSummary>
+    var allAppsList: List<AppSummary>? = null
 
     fun searchForQuery(query: String) {
-        result.postValue(allAppsList.filter {
-            it.name.contains(query) || it.packageName.contains(query)
-        })
+        val filter = allAppsList?.filter {
+            it.name.contains(query, true) ||
+                    it.packageName.contains(query, true)
+        }
+        if (filter != null) result.postValue(filter)
     }
 
 }
