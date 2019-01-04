@@ -1,6 +1,6 @@
 /*
  *     This is the source code of developer-assistant project.
- *     Copyright (C)   Ali Nasrabadi<nasrabadiam@gmail.com>  2018-2018
+ *     Copyright (C)   Ali Nasrabadi<nasrabadiam@gmail.com>  2018-2019
  *
  *     This program is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
         searchViewModel =
                 ViewModelProviders.of(this).get(SearchViewModel::class.java)
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+        // Create the adapter that will return a fragment for each valueOf the three
+        // primary sections valueOf the activity.
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
 
         // Set up the ViewPager with the sections adapter.
@@ -59,18 +59,18 @@ class MainActivity : AppCompatActivity() {
 
         searchView.apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        }
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null)
-                    searchViewModel.searchForQuery(newText)
-                return true
-            }
-        })
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText != null)
+                        searchViewModel.searchForQuery(newText)
+                    return true
+                }
+            })
+        }
     }
 
 

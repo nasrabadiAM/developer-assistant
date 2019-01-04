@@ -1,6 +1,6 @@
 /*
  *     This is the source code of developer-assistant project.
- *     Copyright (C)   Ali Nasrabadi<nasrabadiam@gmail.com>  2018-2018
+ *     Copyright (C)   Ali Nasrabadi<nasrabadiam@gmail.com>  2018-2019
  *
  *     This program is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ data class AppListItem(
 ) {
 
     companion object {
-        fun of(appSummary: AppSummary): AppListItem {
+        fun valueOf(appSummary: AppSummary): AppListItem {
             return AppListItem(
                 appSummary.name, appSummary.packageName,
                 AndroidUtil.getUriFromResourceId(appSummary.packageName, appSummary.iconResId)

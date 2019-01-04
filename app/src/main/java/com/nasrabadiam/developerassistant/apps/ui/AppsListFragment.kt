@@ -1,6 +1,6 @@
 /*
  *     This is the source code of developer-assistant project.
- *     Copyright (C)   Ali Nasrabadi<nasrabadiam@gmail.com>  2018-2018
+ *     Copyright (C)   Ali Nasrabadi<nasrabadiam@gmail.com>  2018-2019
  *
  *     This program is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -54,15 +54,15 @@ class AppsListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val domain = AppsDomainImpl(
+            RepositoryImpl(
+                AndroidRepositoryImpl(context!!)
+            )
+        )
+
         viewModelFactory =
-                ViewModelFactory(
-                    AppsDomainImpl(
-                        RepositoryImpl(
-                            AndroidRepositoryImpl(context!!)
-                        )
-                    )
-                    , AndroidSchedulers.mainThread()
-                )
+                ViewModelFactory(domain, AndroidSchedulers.mainThread())
 
 
         appsViewModel = ViewModelProviders.of(
@@ -74,6 +74,23 @@ class AppsListFragment : Fragment() {
             ViewModelProviders.of(this)
                 .get(SearchViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
+
+        appsViewModel.apply {
+            appsList.observe(this@AppsListFragment, Observer { it ->
+                (rootView.recycler_view.adapter as AppsListAdapter).updateList(it.map { AppListItem.valueOf(it) })
+                setupSearch(it)
+            })
+            loading.observe(this@AppsListFragment, Observer {
+                if (it) {
+                    rootView.progress_bar.visible()
+                } else {
+                    rootView.progress_bar.invisible()
+                }
+            })
+        }
+        searchViewModel.result.observe(this, Observer { it ->
+            (rootView.recycler_view.adapter as AppsListAdapter).updateList(it.map { AppListItem.valueOf(it) })
+        })
     }
 
     override fun onCreateView(
@@ -81,17 +98,17 @@ class AppsListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         rootView = inflater.inflate(R.layout.fragment_apps, container, false)
-        rootView.recycler_view.layoutManager = GridLayoutManager(context, 3)
-        rootView.recycler_view.setHasFixedSize(true)
-        rootView.recycler_view.adapter = AppsListAdapter()
-        (rootView.recycler_view.adapter as AppsListAdapter).onItemClickListener =
-                object : OnItemClickListener {
-                    override fun onClick(item: AppListItem) {
-                        showAppDetail(item)
+        rootView.recycler_view.apply {
+            layoutManager = GridLayoutManager(context, resources.getInteger(R.integer.apps_columns))
+            setHasFixedSize(true)
+            adapter = AppsListAdapter()
+            (adapter as AppsListAdapter).onItemClickListener =
+                    object : OnItemClickListener {
+                        override fun onClick(item: AppListItem) {
+                            showAppDetail(item)
+                        }
                     }
-                }
-
-
+        }
         return rootView
     }
 
@@ -101,21 +118,9 @@ class AppsListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        appsViewModel.getAllInstalledApps()
-        appsViewModel.appsList.observe(this, Observer { it ->
-            (rootView.recycler_view.adapter as AppsListAdapter).updateList(it.map { AppListItem.of(it) })
-            setupSearch(it)
-        })
-        appsViewModel.loading.observe(this, Observer {
-            if (it) {
-                rootView.progress_bar.visible()
-            } else {
-                rootView.progress_bar.invisible()
-            }
-        })
-        searchViewModel.result.observe(this, Observer { it ->
-            (rootView.recycler_view.adapter as AppsListAdapter).updateList(it.map { AppListItem.of(it) })
-        })
+        if (savedInstanceState == null) {
+            appsViewModel.getAllInstalledApps()
+        }
     }
 
     private fun setupSearch(list: List<AppSummary>) {

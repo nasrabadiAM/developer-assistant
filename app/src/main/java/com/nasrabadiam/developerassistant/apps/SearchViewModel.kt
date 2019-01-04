@@ -1,6 +1,6 @@
 /*
  *     This is the source code of developer-assistant project.
- *     Copyright (C)   Ali Nasrabadi<nasrabadiam@gmail.com>  2018-2018
+ *     Copyright (C)   Ali Nasrabadi<nasrabadiam@gmail.com>  2018-2019
  *
  *     This program is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -28,11 +28,9 @@ class SearchViewModel : ViewModel() {
     lateinit var allAppsList: List<AppSummary>
 
     fun searchForQuery(query: String) {
-        val resultList = allAppsList.filter {
-            it.name.contains(query) ||
-                    it.packageName.contains(query)
-        }
-        result.postValue(resultList)
+        result.postValue(allAppsList.filter {
+            it.name.contains(query) || it.packageName.contains(query)
+        })
     }
 
 }

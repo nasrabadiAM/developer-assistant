@@ -1,6 +1,6 @@
 /*
  *     This is the source code of developer-assistant project.
- *     Copyright (C)   Ali Nasrabadi<nasrabadiam@gmail.com>  2018-2018
+ *     Copyright (C)   Ali Nasrabadi<nasrabadiam@gmail.com>  2018-2019
  *
  *     This program is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -38,7 +38,6 @@ class AppsListViewModel constructor(
     val loading: MutableLiveData<Boolean> = MutableLiveData()
     private val appsSummaryList = ArrayList<AppSummary>()
     private val disposables = CompositeDisposable()
-
 
     fun getAllInstalledApps() {
         loading.postValue(true)

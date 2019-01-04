@@ -1,6 +1,6 @@
 /*
  *     This is the source code of developer-assistant project.
- *     Copyright (C)   Ali Nasrabadi<nasrabadiam@gmail.com>  2018-2018
+ *     Copyright (C)   Ali Nasrabadi<nasrabadiam@gmail.com>  2018-2019
  *
  *     This program is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -129,7 +129,6 @@ class BlogPostDiffUtil(
         return oldItems[oldItemPosition].name == newItems[newItemPostion].name &&
                 oldItems[oldItemPosition].packageName == newItems[newItemPostion].packageName &&
                 oldItems[oldItemPosition].iconUri == newItems[newItemPostion].iconUri
-
     }
 
     override fun getOldListSize(): Int {
