@@ -28,8 +28,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.tabs.TabLayout
-import com.nasrabadiam.developerassistant.apps.SearchViewModel
-import com.nasrabadiam.developerassistant.apps.ui.AppsListFragment
+import com.nasrabadiam.developerassistant.apps.list.SearchViewModel
+import com.nasrabadiam.developerassistant.apps.list.ui.AppsListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

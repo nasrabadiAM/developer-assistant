@@ -19,7 +19,7 @@
 package com.nasrabadiam.developerassistant.apps
 
 import com.nasrabadiam.developerassistant.AndroidUtil
-import com.nasrabadiam.developerassistant.apps.ui.AppListItem
+import com.nasrabadiam.developerassistant.apps.list.ui.AppListItem
 import org.junit.Assert
 import org.junit.Test
 

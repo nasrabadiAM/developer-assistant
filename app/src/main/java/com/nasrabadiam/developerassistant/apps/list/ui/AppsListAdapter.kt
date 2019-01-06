@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nasrabadiam.developerassistant.apps.ui
+package com.nasrabadiam.developerassistant.apps.list.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

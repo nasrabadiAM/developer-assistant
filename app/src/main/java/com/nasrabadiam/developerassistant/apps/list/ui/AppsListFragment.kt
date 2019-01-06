@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nasrabadiam.developerassistant.apps.ui
+package com.nasrabadiam.developerassistant.apps.list.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.nasrabadiam.developerassistant.R
 import com.nasrabadiam.developerassistant.apps.AppSummary
 import com.nasrabadiam.developerassistant.apps.AppsDomainImpl
-import com.nasrabadiam.developerassistant.apps.SearchViewModel
+import com.nasrabadiam.developerassistant.apps.list.SearchViewModel
 import com.nasrabadiam.developerassistant.invisible
 import com.nasrabadiam.developerassistant.repo.RepositoryImpl
 import com.nasrabadiam.developerassistant.repo.android.AndroidRepositoryImpl
@@ -77,7 +77,11 @@ class AppsListFragment : Fragment() {
 
         appsViewModel.apply {
             appsList.observe(this@AppsListFragment, Observer { it ->
-                (rootView.recycler_view.adapter as AppsListAdapter).updateList(it.map { AppListItem.valueOf(it) })
+                (rootView.recycler_view.adapter as AppsListAdapter).updateList(it.map {
+                    AppListItem.valueOf(
+                        it
+                    )
+                })
                 setupSearch(it)
             })
             loading.observe(this@AppsListFragment, Observer {
@@ -89,7 +93,11 @@ class AppsListFragment : Fragment() {
             })
         }
         searchViewModel.result.observe(this, Observer { it ->
-            (rootView.recycler_view.adapter as AppsListAdapter).updateList(it.map { AppListItem.valueOf(it) })
+            (rootView.recycler_view.adapter as AppsListAdapter).updateList(it.map {
+                AppListItem.valueOf(
+                    it
+                )
+            })
         })
     }
 

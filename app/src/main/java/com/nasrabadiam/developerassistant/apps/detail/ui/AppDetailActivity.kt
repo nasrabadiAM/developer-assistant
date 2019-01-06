@@ -16,12 +16,8 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nasrabadiam.developerassistant.apps
+package com.nasrabadiam.developerassistant.apps.detail.ui
 
-import com.nasrabadiam.developerassistant.repo.AppSummaryEntity
-import io.reactivex.Observable
+import androidx.appcompat.app.AppCompatActivity
 
-interface Repository {
-
-    fun getInstalledApps(): Observable<AppSummaryEntity>
-}
+class AppDetailActivity : AppCompatActivity()

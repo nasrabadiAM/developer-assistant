@@ -22,6 +22,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.nasrabadiam.developerassistant.apps.AppSummary
 import com.nasrabadiam.developerassistant.apps.AppsDomain
+import com.nasrabadiam.developerassistant.apps.list.ui.AppsListViewModel
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import org.junit.After
@@ -31,7 +32,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations

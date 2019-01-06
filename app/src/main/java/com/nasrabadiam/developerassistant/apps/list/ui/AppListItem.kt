@@ -16,16 +16,35 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nasrabadiam.developerassistant.repo
+package com.nasrabadiam.developerassistant.apps.list.ui
 
-import com.nasrabadiam.developerassistant.apps.Repository
-import com.nasrabadiam.developerassistant.repo.android.AndroidRepository
-import io.reactivex.Observable
+import android.net.Uri
+import com.nasrabadiam.developerassistant.AndroidUtil
+import com.nasrabadiam.developerassistant.apps.AppSummary
 
-class RepositoryImpl(private val androidRepository: AndroidRepository) : Repository {
+data class AppListItem(
+    val name: String,
+    val packageName: String,
+    val iconUri: Uri
+) {
 
-    override fun getInstalledApps(): Observable<AppSummaryEntity> {
-        return androidRepository.getInstalledApps()
+    companion object {
+        fun valueOf(appSummary: AppSummary): AppListItem {
+            return AppListItem(
+                appSummary.name, appSummary.packageName,
+                AndroidUtil.getUriFromResourceId(appSummary.packageName, appSummary.iconResId)
+            )
+        }
     }
 
+    fun compareTo(item: AppListItem): Int {
+        return if (item.name == this.name &&
+            item.packageName == this.packageName &&
+            item.iconUri == this.iconUri
+        ) {
+            0
+        } else {
+            1
+        }
+    }
 }

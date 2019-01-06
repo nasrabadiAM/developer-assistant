@@ -16,10 +16,11 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nasrabadiam.developerassistant.apps
+package com.nasrabadiam.developerassistant.apps.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.nasrabadiam.developerassistant.apps.AppSummary
 
 class SearchViewModel : ViewModel() {
 

@@ -16,35 +16,26 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nasrabadiam.developerassistant.apps.ui
+package com.nasrabadiam.developerassistant.apps
 
-import android.net.Uri
-import com.nasrabadiam.developerassistant.AndroidUtil
-import com.nasrabadiam.developerassistant.apps.AppSummary
+import androidx.test.rule.ActivityTestRule
+import androidx.test.runner.AndroidJUnit4
+import com.nasrabadiam.developerassistant.MainActivity
+import com.nasrabadiam.developerassistant.apps.detail.ui.AppDetailActivity
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 
-data class AppListItem(
-    val name: String,
-    val packageName: String,
-    val iconUri: Uri
-) {
 
-    companion object {
-        fun valueOf(appSummary: AppSummary): AppListItem {
-            return AppListItem(
-                appSummary.name, appSummary.packageName,
-                AndroidUtil.getUriFromResourceId(appSummary.packageName, appSummary.iconResId)
-            )
-        }
-    }
+@RunWith(AndroidJUnit4::class)
+class AppDetailActivityInstrumentedTest {
 
-    fun compareTo(item: AppListItem): Int {
-        return if (item.name == this.name &&
-            item.packageName == this.packageName &&
-            item.iconUri == this.iconUri
-        ) {
-            0
-        } else {
-            1
-        }
+    @get:Rule
+    var mActivityRule =
+        ActivityTestRule(AppDetailActivity::class.java)
+
+    @Test
+    fun testLaunchingActivity() {
+
     }
 }
