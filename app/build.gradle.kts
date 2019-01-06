@@ -24,10 +24,6 @@ plugins {
 }
 
 
-apply {
-    from(".gradle/properties.gradle")
-}
-
 android {
     compileSdkVersion(Deps.buildVariants.target_sdk)
     defaultConfig {
@@ -47,12 +43,6 @@ android {
             keyAlias = "androiddebugkey"
             keyPassword = "android"
         }
-        create("release") {
-            storeFile = file("../buildSrc/release.jks")
-            storePassword = project.ext["pass"].toString()
-            keyAlias = project.ext["alias"].toString()
-            keyPassword = project.ext["keypass"].toString()
-        }
     }
 
     buildTypes {
@@ -62,7 +52,6 @@ android {
             versionNameSuffix = "-debug"
         }
         getByName("release") {
-            signingConfig = signingConfigs.getByName("release")
             isUseProguard = true
             isMinifyEnabled = false
             isDebuggable = false
