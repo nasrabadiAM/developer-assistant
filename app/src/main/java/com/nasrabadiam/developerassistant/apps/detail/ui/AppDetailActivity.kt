@@ -22,6 +22,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.nasrabadiam.developerassistant.R
 
 class AppDetailActivity : AppCompatActivity() {
 
@@ -29,6 +30,7 @@ class AppDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.app_detail)
         if (intent?.extras?.containsKey(PACKAGE_NAME_KEY) == true) {
             mPackageName = intent?.extras?.getString(PACKAGE_NAME_KEY)!!
         }

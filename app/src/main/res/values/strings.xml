@@ -23,4 +23,5 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="content_description_app_icon">App Image</string>
     <string name="action_search">Search</string>
+    <string name="there_is_no_such_app">Sorry, This App Is Not Exist.</string>
 </resources>
