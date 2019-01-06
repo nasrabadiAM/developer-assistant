@@ -18,10 +18,12 @@
 
 package com.nasrabadiam.developerassistant.apps
 
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import com.nasrabadiam.developerassistant.MainActivity
 import com.nasrabadiam.developerassistant.apps.detail.ui.AppDetailActivity
+import org.junit.Assert
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,10 +34,23 @@ class AppDetailActivityInstrumentedTest {
 
     @get:Rule
     var mActivityRule =
-        ActivityTestRule(AppDetailActivity::class.java)
+        ActivityTestRule(
+            AppDetailActivity::class.java,
+            true, false
+        )
+
+    val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+
+    @Before
+    fun setUp() {
+        val intent = AppDetailActivity.startWith(appContext, appContext.packageName)
+        mActivityRule.launchActivity(intent)
+    }
 
     @Test
-    fun testLaunchingActivity() {
-
+    fun testGetArgs() {
+        val extra = mActivityRule.activity.intent.extras
+        val packageName = extra?.getString(AppDetailActivity.PACKAGE_NAME_KEY)
+        Assert.assertEquals(packageName, appContext.packageName)
     }
 }

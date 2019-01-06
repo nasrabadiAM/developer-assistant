@@ -18,6 +18,29 @@
 
 package com.nasrabadiam.developerassistant.apps.detail.ui
 
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
-class AppDetailActivity : AppCompatActivity()
+class AppDetailActivity : AppCompatActivity() {
+
+    var mPackageName: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (intent?.extras?.containsKey(PACKAGE_NAME_KEY) == true) {
+            mPackageName = intent?.extras?.getString(PACKAGE_NAME_KEY)!!
+        }
+    }
+
+    companion object {
+        const val PACKAGE_NAME_KEY = "PACKAGE_NAME"
+
+        fun startWith(context: Context, packageName: String): Intent {
+            val intent = Intent(context, AppDetailActivity::class.java)
+            intent.putExtra(PACKAGE_NAME_KEY, packageName)
+            return intent
+        }
+    }
+}
