@@ -18,9 +18,12 @@
 
 package com.nasrabadiam.developerassistant.apps
 
+import com.nasrabadiam.developerassistant.apps.detail.AppDetail
 import io.reactivex.Observable
 
 interface AppsDomain {
 
     fun getAllInstalledApps(): Observable<AppSummary>
+    fun saveApk(packageName: String)
+    fun getAppDetails(packageName: String): Observable<AppDetail>
 }

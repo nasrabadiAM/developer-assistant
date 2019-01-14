@@ -35,6 +35,8 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+    
+    kapt { generateStubs = true }
 
     signingConfigs {
         getByName("debug") {
@@ -99,17 +101,20 @@ dependencies {
 
 
     //android unit test
-    androidTestImplementation(Deps.test.junit)
-    androidTestImplementation(Deps.supportx.annotations)
-    androidTestImplementation(Deps.atsl_x.runner)
-    androidTestImplementation(Deps.atsl_x.rules)
-    androidTestImplementation(Deps.mockito.core)
-    androidTestImplementation(Deps.mockito.android)
-    androidTestImplementation(Deps.espresso_x.core)
-    androidTestImplementation(Deps.espresso_x.intents)
-    androidTestImplementation("com.nhaarman:mockito-kotlin:1.5.0")
-    androidTestImplementation(Deps.kotlin.test)
+    androidTestImplementation(Deps.android_x_test.core)
 
-    //fragment test util
-    debugImplementation("androidx.fragment:fragment-testing:1.1.0-alpha02")
+    androidTestImplementation(Deps.android_x_test.runner)
+    androidTestImplementation(Deps.android_x_test.rules)
+
+    androidTestImplementation(Deps.android_x_test.junit)
+    androidTestImplementation(Deps.android_x_test.truth)
+    androidTestImplementation(Deps.android_x_test.google_truth)
+
+    androidTestImplementation(Deps.android_x_test.espresso.core)
+    androidTestImplementation(Deps.android_x_test.espresso.contrib)
+    androidTestImplementation(Deps.android_x_test.espresso.intents)
+    androidTestImplementation(Deps.android_x_test.espresso.accessibility)
+    androidTestImplementation(Deps.android_x_test.espresso.web)
+    androidTestImplementation(Deps.android_x_test.espresso.idling_concurrent)
+    androidTestImplementation(Deps.android_x_test.espresso.idling_resource)
 }

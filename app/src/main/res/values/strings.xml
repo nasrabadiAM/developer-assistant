@@ -24,4 +24,9 @@
     <string name="content_description_app_icon">App Image</string>
     <string name="action_search">Search</string>
     <string name="there_is_no_such_app">Sorry, This App Is Not Exist.</string>
+    <string name="launch">Launch</string>
+    <string name="share">Share</string>
+    <string name="error_loading_app_detail">Error Happend While Loading This App Detail, Try Again!</string>
+    <string name="save">Save</string>
+    <string name="more">More</string>
 </resources>

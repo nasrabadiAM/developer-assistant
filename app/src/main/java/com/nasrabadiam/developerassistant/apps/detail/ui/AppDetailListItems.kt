@@ -16,13 +16,24 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nasrabadiam.developerassistant.repo.android
+package com.nasrabadiam.developerassistant.apps.detail.ui
 
-import com.nasrabadiam.developerassistant.repo.AppDetailEntity
-import com.nasrabadiam.developerassistant.repo.AppSummaryEntity
-import io.reactivex.Observable
+import android.net.Uri
+import com.nasrabadiam.developerassistant.apps.detail.AppAction
+import com.nasrabadiam.developerassistant.apps.detail.AppInfo
 
-interface AndroidRepository {
-    fun getInstalledApps(): Observable<AppSummaryEntity>
-    fun getAppDetail(packageName: String): Observable<AppDetailEntity>
+sealed class AppDetailListItems
+
+data class AppUiAction(val packageName: String, val iconUri: Uri) : AppDetailListItems() {
+    companion object {
+        fun valueOf(appAction: AppAction) =
+            AppUiAction(appAction.packageName, Uri.parse(appAction.iconUriString))
+    }
 }
+
+data class AppUiInfo(val title: String, val info: String) : AppDetailListItems() {
+    companion object {
+        fun valueOf(appInfo: AppInfo) = AppUiInfo(appInfo.title, appInfo.info)
+    }
+}
+

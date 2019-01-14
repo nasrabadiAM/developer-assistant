@@ -18,9 +18,13 @@
 
 package com.nasrabadiam.developerassistant
 
+import android.content.Context
 import android.net.Uri
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 
 fun View.visible() {
@@ -40,3 +44,10 @@ fun ImageView.loadImage(url: String) =
 
 fun ImageView.loadImage(uri: Uri) =
     Glide.with(this).load(uri).into(this)
+
+fun ViewGroup.inflate(viewType: Int) = LayoutInflater.from(this.context).inflate(viewType, this, false)
+
+fun Context.toast(text: CharSequence) = Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+
+fun Context.toast(textRes: Int) = Toast.makeText(this, textRes, Toast.LENGTH_SHORT).show()
+

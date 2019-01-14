@@ -18,18 +18,11 @@
 
 package com.nasrabadiam.developerassistant
 
-import android.os.Bundle
-import androidx.fragment.app.FragmentFactory
-import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.runner.AndroidJUnit4
 import com.nasrabadiam.developerassistant.apps.list.ui.AppsListFragment
+import junit.framework.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
-import kotlin.test.assertNotNull
 
 @RunWith(AndroidJUnit4::class)
 class AppsListFragmentInstrumentedTest {
@@ -39,16 +32,4 @@ class AppsListFragmentInstrumentedTest {
         val fragment = AppsListFragment.newInstance()
         assertNotNull(fragment)
     }
-
-    @Test
-    fun testShowRecyclerView() {
-        // The "state" and "factory" arguments are optional.
-        val fragmentArgs = Bundle().apply {}
-        val factory = FragmentFactory()
-        val scenario = launchFragmentInContainer<AppsListFragment>(
-            fragmentArgs, factory
-        )
-        onView(withId(R.id.recycler_view)).check(matches(isDisplayed()))
-    }
-
 }

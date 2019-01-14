@@ -20,11 +20,11 @@ package com.nasrabadiam.developerassistant.repo.android
 
 import android.content.Context
 import android.content.pm.PackageManager
+import com.nasrabadiam.developerassistant.repo.AppDetailEntity
 import com.nasrabadiam.developerassistant.repo.AppSummaryEntity
 import io.reactivex.Observable
 
-class AndroidRepositoryImpl(private val context: Context) : AndroidRepository() {
-
+class AndroidRepositoryImpl(private val context: Context) : AndroidRepository {
     var packageManager: PackageManager = context.packageManager
 
     override fun getInstalledApps(): Observable<AppSummaryEntity> {
@@ -36,5 +36,33 @@ class AndroidRepositoryImpl(private val context: Context) : AndroidRepository() 
                     it.packageName, it.icon
                 )
             }
+    }
+
+    override fun getAppDetail(packageName: String): Observable<AppDetailEntity> {
+        val lineSeparator = "\n"
+        return Observable.create {
+            val packageInfo = packageManager.getPackageInfo(
+                packageName, PackageManager.GET_PERMISSIONS
+                        or PackageManager.GET_ACTIVITIES
+                        or PackageManager.GET_RECEIVERS
+                        or PackageManager.GET_PROVIDERS
+                        or PackageManager.GET_SERVICES
+            )
+
+            val permissions = packageInfo.requestedPermissions.joinToString(lineSeparator)
+            it.onNext(AppDetailEntity("Permissions", permissions))
+
+            val receivers = packageInfo.receivers.joinToString(lineSeparator) { it.name }
+            it.onNext(AppDetailEntity("Receivers", receivers))
+
+            val activities = packageInfo.activities.joinToString(lineSeparator) { it.name }
+            it.onNext(AppDetailEntity("Activities", activities))
+
+            val services = packageInfo.services.joinToString(lineSeparator) { it.name }
+            it.onNext(AppDetailEntity("Services", services))
+
+            val providers = packageInfo.providers.joinToString(lineSeparator) { it.name }
+            it.onNext(AppDetailEntity("Providers", providers))
+        }
     }
 }

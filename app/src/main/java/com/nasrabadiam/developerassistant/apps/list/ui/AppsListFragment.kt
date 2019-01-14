@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.nasrabadiam.developerassistant.R
 import com.nasrabadiam.developerassistant.apps.AppSummary
 import com.nasrabadiam.developerassistant.apps.AppsDomainImpl
+import com.nasrabadiam.developerassistant.apps.detail.ui.AppDetailActivity
 import com.nasrabadiam.developerassistant.apps.list.SearchViewModel
 import com.nasrabadiam.developerassistant.invisible
 import com.nasrabadiam.developerassistant.repo.RepositoryImpl
@@ -77,7 +78,7 @@ class AppsListFragment : Fragment() {
 
         appsViewModel.apply {
             appsList.observe(this@AppsListFragment, Observer { it ->
-                (rootView.recycler_view.adapter as AppsListAdapter).updateList(it.map {
+                (rootView.apps_recycler_view.adapter as AppsListAdapter).updateList(it.map {
                     AppListItem.valueOf(
                         it
                     )
@@ -93,7 +94,7 @@ class AppsListFragment : Fragment() {
             })
         }
         searchViewModel.result.observe(this, Observer { it ->
-            (rootView.recycler_view.adapter as AppsListAdapter).updateList(it.map {
+            (rootView.apps_recycler_view.adapter as AppsListAdapter).updateList(it.map {
                 AppListItem.valueOf(
                     it
                 )
@@ -106,7 +107,7 @@ class AppsListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         rootView = inflater.inflate(R.layout.fragment_apps, container, false)
-        rootView.recycler_view.apply {
+        rootView.apps_recycler_view.apply {
             layoutManager = GridLayoutManager(context, resources.getInteger(R.integer.apps_columns))
             setHasFixedSize(true)
             adapter = AppsListAdapter()
@@ -121,7 +122,7 @@ class AppsListFragment : Fragment() {
     }
 
     private fun showAppDetail(item: AppListItem) {
-        //TODO: show app details
+        startActivity(AppDetailActivity.startWith(this.context, item.packageName, item.iconUri))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

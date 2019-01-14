@@ -23,9 +23,11 @@ import com.nasrabadiam.developerassistant.repo.android.AndroidRepository
 import io.reactivex.Observable
 
 class RepositoryImpl(private val androidRepository: AndroidRepository) : Repository {
-
     override fun getInstalledApps(): Observable<AppSummaryEntity> {
         return androidRepository.getInstalledApps()
     }
 
+    override fun getAppDetail(packageName: String): Observable<AppDetailEntity> {
+        return androidRepository.getAppDetail(packageName)
+    }
 }

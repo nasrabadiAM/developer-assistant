@@ -18,10 +18,21 @@
 
 package com.nasrabadiam.developerassistant.apps
 
+import com.nasrabadiam.developerassistant.apps.detail.AppDetail
+import com.nasrabadiam.developerassistant.repo.AppDetailEntity
 import io.reactivex.Observable
 
 class AppsDomainImpl(private val repository: Repository) : AppsDomain {
+
     override fun getAllInstalledApps(): Observable<AppSummary> {
         return repository.getInstalledApps().map { it.getDomainModel() }
+    }
+
+    override fun saveApk(packageName: String) {
+        // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getAppDetails(packageName: String): Observable<AppDetail> {
+        return repository.getAppDetail(packageName).map { it.getDomainModel() }
     }
 }

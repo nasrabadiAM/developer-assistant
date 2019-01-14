@@ -18,9 +18,9 @@
 
 package com.nasrabadiam.developerassistant
 
+import android.security.KeyChain
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -31,5 +31,12 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun test_joinString_behavior() {
+        val list = listOf("Hello", "Mello", "Vello")
+        val joined = list.joinToString(separator = "\n")
+        assertEquals("Hello\nMello\nVello", joined)
     }
 }

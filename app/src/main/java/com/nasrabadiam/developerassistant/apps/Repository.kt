@@ -18,10 +18,12 @@
 
 package com.nasrabadiam.developerassistant.apps
 
+import com.nasrabadiam.developerassistant.repo.AppDetailEntity
 import com.nasrabadiam.developerassistant.repo.AppSummaryEntity
 import io.reactivex.Observable
 
 interface Repository {
 
     fun getInstalledApps(): Observable<AppSummaryEntity>
+    fun getAppDetail(packageName: String): Observable<AppDetailEntity>
 }

@@ -16,13 +16,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nasrabadiam.developerassistant.repo.android
+package com.nasrabadiam.developerassistant.apps.detail
 
-import com.nasrabadiam.developerassistant.repo.AppDetailEntity
-import com.nasrabadiam.developerassistant.repo.AppSummaryEntity
-import io.reactivex.Observable
+sealed class AppDetail
 
-interface AndroidRepository {
-    fun getInstalledApps(): Observable<AppSummaryEntity>
-    fun getAppDetail(packageName: String): Observable<AppDetailEntity>
-}
+data class AppAction(val packageName: String, val iconUriString: String) : AppDetail()
+
+data class AppInfo(val title: String, val info: String) : AppDetail()

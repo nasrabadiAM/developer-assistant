@@ -18,16 +18,17 @@
 
 package com.nasrabadiam.developerassistant.apps
 
+import android.net.Uri
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.nasrabadiam.developerassistant.R
 import com.nasrabadiam.developerassistant.apps.detail.ui.AppDetailActivity
-import org.hamcrest.Matchers.not
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -45,11 +46,14 @@ class AppDetailActivityInstrumentedTest {
             true, false
         )
 
-    val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+    private val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
     @Before
     fun setUp() {
-        val intent = AppDetailActivity.startWith(appContext, appContext.packageName)
+        val intent = AppDetailActivity.startWith(
+            appContext,
+            appContext.packageName, Uri.EMPTY
+        )
         mActivityRule.launchActivity(intent)
     }
 
@@ -61,14 +65,17 @@ class AppDetailActivityInstrumentedTest {
     }
 
     @Test
-    fun testUiInitialState() {
-        onView(withId(R.id.app_detail_message))
-            .check(matches(not(isDisplayed())))
-        onView(withId(R.id.app_detail_prent))
+    fun testShowActionItem() {
+        onView(withId(R.id.launch_parent))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.app_detail_progressBar))
+        onView(withText(appContext.getString(R.string.launch)))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.app_detail_recyclerView))
-            .check(matches(not(isDisplayed())))
+    }
+
+    @Test
+    fun testLaunchApp() {
+        onView(withId(R.id.launch_parent))
+            .perform(click())
+            .check(doesNotExist())
     }
 }

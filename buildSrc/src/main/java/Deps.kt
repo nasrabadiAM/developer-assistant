@@ -62,6 +62,18 @@ object Deps {
         const val arch_core_x = "2.0.0"
         const val espresso_x = "3.1.0"
         const val atsl_x = "1.1.0"
+
+        object android_x_test {
+            const val core = "1.0.0"
+
+            const val runner = "1.1.0"
+            const val rules = "1.1.0"
+            const val junit = "1.0.0"
+            const val truth = "1.0.0"
+            const val google_truth = "0.42"
+            const val esspresso = "3.1.0"
+
+        }
     }
 
 
@@ -82,7 +94,7 @@ object Deps {
         const val app_compat = "androidx.appcompat:appcompat:${versions.supportx}"
         const val recyclerview = "androidx.recyclerview:recyclerview:${versions.supportx}"
         const val cardview = "androidx.cardview:cardview:${versions.supportx}"
-        const val design = "com.google.android.material:material:${versions.supportx}-rc01"
+        const val design = "com.google.android.material:material:${versions.supportx}"
         const val v4 = "androidx.legacy:legacy-support-v4:${versions.supportx}"
         const val core_utils = "androidx.legacy:legacy-support-core-utils:${versions.supportx}"
         const val custom_tabs = "androidx.browser:browser:${versions.supportx}"
@@ -116,8 +128,8 @@ object Deps {
     }
 
     object archx {
-        const val testing = "androidx.arch.core:core-testing:${versions.arch_core_x}-rc01"
-        const val paging = "androidx.paging:paging-retrofit_runtime:${versions.arch_core_x}-rc01"
+        const val testing = "androidx.arch.core:core-testing:${versions.arch_core_x}"
+        const val paging = "androidx.paging:paging-retrofit_runtime:${versions.arch_core_x}"
 
         object lifecycle {
             const val retrofit_runtime = "androidx.lifecycle:lifecycle-retrofit_runtime:${versions.arch_core_x}"
@@ -126,9 +138,10 @@ object Deps {
             const val extensions = "androidx.lifecycle:lifecycle-extensions:${versions.arch_core_x}"
 
             // alternatively - just ViewModel\
-            const val viewModel= "androidx.lifecycle:lifecycle-viewmodel:${versions.arch_core_x}-ktx" // use -ktx for Kotlin
+            const val viewModel =
+                "androidx.lifecycle:lifecycle-viewmodel:${versions.arch_core_x}-ktx" // use -ktx for Kotlin
             // alternatively - just LiveData
-            const val LiveData= "androidx.lifecycle:lifecycle-livedata:${versions.arch_core_x}"
+            const val LiveData = "androidx.lifecycle:lifecycle-livedata:${versions.arch_core_x}"
 
             const val java8 = "androidx.lifecycle:lifecycle-common-java8:${versions.arch_core_x}"
             const val compiler = "androidx.lifecycle:lifecycle-compiler:${versions.arch_core_x}"
@@ -191,6 +204,34 @@ object Deps {
     object atsl_x {
         const val runner = "androidx.test:runner:${versions.atsl_x}"
         const val rules = "androidx.test:rules:${versions.atsl_x}"
+    }
+
+    object android_x_test {
+        /** Core library*/
+        const val core = "androidx.test:core:${versions.android_x_test.core}"
+
+        /** AndroidJUnitRunner and JUnit Rules*/
+        const val runner = "androidx.test:runner:${versions.android_x_test.runner}"
+        const val rules = "androidx.test:rules:${versions.android_x_test.rules}"
+
+        /** Assertions*/
+        const val junit = "androidx.test.ext:junit:${versions.android_x_test.junit}"
+        const val truth = "androidx.test.ext:truth:${versions.android_x_test.truth}"
+        const val google_truth = "com.google.truth:truth:${versions.android_x_test.google_truth}"
+
+        /** Espresso dependencies*/
+        object espresso {
+            const val core = "androidx.test.espresso:espresso-core:${versions.android_x_test.esspresso}"
+            const val contrib = "androidx.test.espresso:espresso-contrib:${versions.android_x_test.esspresso}"
+            const val intents = "androidx.test.espresso:espresso-intents:${versions.android_x_test.esspresso}"
+            const val accessibility =
+                "androidx.test.espresso:espresso-accessibility:${versions.android_x_test.esspresso}"
+            const val web = "androidx.test.espresso:espresso-web:${versions.android_x_test.esspresso}"
+            const val idling_concurrent =
+                "androidx.test.espresso.idling:idling-concurrent:${versions.android_x_test.esspresso}"
+            const val idling_resource =
+                "androidx.test.espresso:espresso-idling-resource:${versions.android_x_test.esspresso}"
+        }
     }
 
 
