@@ -78,4 +78,11 @@ class AppDetailActivityInstrumentedTest {
             .perform(click())
             .check(doesNotExist())
     }
+
+    @Test
+    fun testShowActivities() {
+        onView(withId(R.id.launch_parent))
+            .perform(click())
+            .check(doesNotExist())
+    }
 }
